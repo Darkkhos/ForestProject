@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
     public Vector2 friction = new Vector2(-.1f, 0);
 
     public float speed;
+    public float speedRun;
 
     public float forceJump = 2;
 
+    private float _currentSpeed;
     private void Update()
     {
         HandleJump();
@@ -22,16 +24,20 @@ public class Player : MonoBehaviour
     
     private void HandleMovements()
     {
+        if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+            _currentSpeed = speedRun;
+        else
+            _currentSpeed = speed;
+
+
         #region Move X
         if (UnityEngine.Input.GetKey(KeyCode.A))
         {
-            //rb2D.MovePosition(rb2D.position - velocity * Time.deltaTime);
-            rb2D.velocity = new Vector2(-speed, rb2D.velocity.y);
+            rb2D.velocity = new Vector2(-_currentSpeed, rb2D.velocity.y);
         }
         else if (UnityEngine.Input.GetKey(KeyCode.D))
         {
-            //rb2D.MovePosition(rb2D.position + velocity * Time.deltaTime);
-            rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+            rb2D.velocity = new Vector2(_currentSpeed, rb2D.velocity.y);
         }
         #endregion
 
