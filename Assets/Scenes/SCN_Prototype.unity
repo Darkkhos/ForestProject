@@ -858,7 +858,7 @@ Transform:
   m_GameObject: {fileID: 1437809430}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: -17, z: -10}
+  m_LocalPosition: {x: -30, y: -13.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -963,7 +963,7 @@ Transform:
   m_GameObject: {fileID: 1440792190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: -17, z: -10}
+  m_LocalPosition: {x: -30, y: -13.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1067,10 +1067,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032163535}
+  - component: {fileID: 2032163536}
   - component: {fileID: 2032163534}
   - component: {fileID: 2032163537}
   - component: {fileID: 2032163532}
-  - component: {fileID: 2032163536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1166,7 +1166,7 @@ Transform:
   m_GameObject: {fileID: 2032163531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: -17, z: 0}
+  m_LocalPosition: {x: -30, y: -13.6, z: 0}
   m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   forceJump: 25
   jumpScaleX: 1.3
   jumpScaleY: 3.5
-  animationDurantion: 0.3
+  jumpScaleTime: 0.3
   ease: 27
   isGround: 0
 --- !u!61 &2032163537

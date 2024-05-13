@@ -9,20 +9,26 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb2D;
 
     [Header("Speed Setup")]
-    public Vector2 friction = new Vector2(-.1f, 0);
+    public Vector2 friction = new (-.1f, 0);
     public float speed;
     public float speedRun;
     public float forceJump = 2;
 
     [Header("Animation Setup")]
     public float jumpScaleX = 1.3f;
-    public float jumpScaleY = 3.8f;    
-    public float animationDurantion = .3f;
+    public float jumpScaleY = 3.5f;    
+    public float jumpScaleTime = .03f;
+
     public Ease ease = Ease.OutBack;
 
     public bool isGround;
 
     private float _currentSpeed;
+
+    private void Start()
+    {
+        isGround = true;
+    }
     private void Update()
     {
         HandleJump();
@@ -68,12 +74,7 @@ public class Player : MonoBehaviour
     {
         if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && isGround)
         {           
-            rb2D.velocity = Vector2.up * forceJump;
-            rb2D.transform.localScale = new Vector2(1.5f, 3);
-
-            isGround = false;
-
-            DOTween.Kill(rb2D.transform);
+            rb2D.velocity = Vector2.up * forceJump;          
 
             HandleScaleJump();
         }
@@ -81,15 +82,23 @@ public class Player : MonoBehaviour
 
     private void HandleScaleJump() 
     {
-        rb2D.transform.DOScaleY(jumpScaleY, animationDurantion).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        rb2D.transform.DOScaleX(jumpScaleX, animationDurantion).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        rb2D.transform.DOScaleY(jumpScaleY, jumpScaleTime).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        rb2D.transform.DOScaleX(jumpScaleX, jumpScaleTime).SetLoops(2, LoopType.Yoyo).SetEase(ease);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGround = false;
         }
     }
 }
