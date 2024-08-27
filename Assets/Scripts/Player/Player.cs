@@ -21,13 +21,19 @@ public class Player : MonoBehaviour
 
     public Ease ease = Ease.OutBack;
 
-    public bool isGround;
+    [Header("Animation Player")]
+    public string boolWalk = "Walk";
+    public Animator animator;
 
+    public bool _isGround;
+    public bool _isRunning;
     private float _currentSpeed;
+
 
     private void Start()
     {
-        isGround = true;
+        _isGround = true;
+        _isRunning = false;
     }
     private void Update()
     {
@@ -48,10 +54,18 @@ public class Player : MonoBehaviour
         if (UnityEngine.Input.GetKey(KeyCode.A))
         {
             rb2D.velocity = new Vector2(-_currentSpeed, rb2D.velocity.y);
+            animator.SetBool(boolWalk, true);
+            rb2D.transform.localScale = new Vector3(-10, 10, 1);
         }
         else if (UnityEngine.Input.GetKey(KeyCode.D))
         {
             rb2D.velocity = new Vector2(_currentSpeed, rb2D.velocity.y);
+            animator.SetBool(boolWalk, true);
+            rb2D.transform.localScale = new Vector3(10, 10, 1);
+        }
+        else
+        {
+            animator.SetBool(boolWalk, false);
         }
         #endregion
 
@@ -72,7 +86,7 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && _isGround)
         {           
             rb2D.velocity = Vector2.up * forceJump;          
 
@@ -90,7 +104,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGround = true;
+            _isGround = true;
         }
     }
 
@@ -98,7 +112,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGround = false;
+            _isGround = false;
         }
     }
 }
