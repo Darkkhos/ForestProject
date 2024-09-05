@@ -1453,7 +1453,7 @@ MonoBehaviour:
   rb2D: {fileID: 2032163532}
   friction: {x: 0.11, y: 0}
   speed: 15
-  speedRun: 20
+  speedRun: 25
   forceJump: 35
   jumpScaleX: 11
   jumpScaleY: 9
