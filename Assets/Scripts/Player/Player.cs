@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public bool _isGround;
     public bool _isRunning;
     private float _currentSpeed;
+    private int _playerDirection = 1;
 
 
     private void Start()
@@ -56,12 +57,14 @@ public class Player : MonoBehaviour
             rb2D.velocity = new Vector2(-_currentSpeed, rb2D.velocity.y);
             animator.SetBool(boolWalk, true);
             rb2D.transform.localScale = new Vector3(-10, 10, 1);
+            _playerDirection = -1;
         }
         else if (UnityEngine.Input.GetKey(KeyCode.D))
         {
             rb2D.velocity = new Vector2(_currentSpeed, rb2D.velocity.y);
             animator.SetBool(boolWalk, true);
             rb2D.transform.localScale = new Vector3(10, 10, 1);
+            _playerDirection = 1;
         }
         else
         {
@@ -88,16 +91,32 @@ public class Player : MonoBehaviour
     {
         if (UnityEngine.Input.GetKeyDown(KeyCode.Space) && _isGround)
         {           
-            rb2D.velocity = Vector2.up * forceJump;          
+            rb2D.velocity = Vector2.up * forceJump;
+            rb2D.transform.localScale = new Vector3(11, 10, 1);
+            if (tween != null) tween.Kill();
 
             HandleScaleJump();
         }
     }
 
+    Tween tween;
+
     private void HandleScaleJump() 
     {
         rb2D.transform.DOScaleY(jumpScaleY, jumpScaleTime).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        rb2D.transform.DOScaleX(jumpScaleX, jumpScaleTime).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        tween = DOTween.To(ScaleXGetter, ScaleXSetter, jumpScaleX, jumpScaleTime).SetEase(ease);
+    }
+
+    private float ScaleXGetter()
+    {
+        return rb2D.transform.localScale.x;
+    }
+
+    private void ScaleXSetter(float value)
+    {
+        var s = rb2D.transform.localScale;
+        s.x = value * _playerDirection;
+        rb2D.transform.localScale = s;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
