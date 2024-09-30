@@ -10,7 +10,7 @@ public class HealthBase : MonoBehaviour
     public float delayToKill = 0.5f;
 
     private float _currentLife;
-    private bool _isDead = false;
+    private bool _isDead;
 
 
     private void Awake()
